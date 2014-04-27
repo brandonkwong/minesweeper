@@ -1,0 +1,168 @@
+/*
+Name: Minesweeper
+Source URI: https://github.com/brandonkwong/minesweeper
+Description: A version of Minesweeper built for a software engineer problem challenge.
+Version: 1.0.0 (Document last updated on 26-Apr-14)
+Author: Brandon Kwong
+Author URI: http://brandonkwong.com
+License: MIT
+*/
+
+
+/* =Body
+-------------------------------------------------------------- */
+html, body {
+    height: 100%;
+}
+
+body {
+    color: #444;
+    font-family: 'FontAwesome', sans-serif;
+    font-size: 1em;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+#container {
+    margin: 0 auto;
+    padding: 1em;
+    width: 32em;
+    text-align: center;
+}
+
+header {
+    font-size: 3em;
+    font-weight: bold;
+    margin: .25em 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: .5em 0 0;
+}
+
+p {
+    line-height: 1.5em;
+    margin: 1em 0;
+    text-align: left;
+}
+
+a {
+    border-bottom: 1px dotted #bbb;
+    color: #197ca8;
+    padding-bottom: .12em;
+    text-decoration: none;
+}
+
+a:hover {
+    border-bottom: 1px dotted #197ca8;
+    color: #197ca8;
+}
+
+footer p {
+    margin: 1.5em 0;
+    text-align: center;
+}
+
+
+/* =Board
+-------------------------------------------------------------- */
+#board {
+    background: #ccc;
+    border-radius: .5em;
+    box-shadow: 0 .5em gray;
+    height: 30em;
+    margin: 0 auto;
+    padding: 1em;
+    width: 30em;
+}
+
+.tile {
+    box-shadow: inset 0 0 0 .1em #ccc;
+    cursor: pointer;
+    float: left;
+    font-weight: bold;
+    height: 3.75em;
+    line-height: 3.75em;
+    text-align: center;
+    width: 3.75em;
+}
+
+.tile:nth-child(1) {
+    border-top-left-radius: .5em;
+}
+
+.tile:nth-child(8) {
+    border-top-right-radius: .5em;
+}
+
+.tile:nth-last-child(8) {
+    border-bottom-left-radius: .5em;
+}
+
+.tile:nth-last-child(1) {
+    border-bottom-right-radius: .5em;
+}
+
+.mine p {
+    font-size: 1.6em;
+    font-weight: normal;
+    line-height: .5em;
+    text-align: center;
+}
+
+
+/* =Buttons
+-------------------------------------------------------------- */
+button {
+    background: #ccc;
+    border: none;
+    border-radius: .5em;
+    box-shadow: 0 .4em gray;
+    color: gray;
+    cursor: pointer;
+    font-family: 'FontAwesome', sans-serif;
+    font-size: 1.25em;
+    margin: 1.5em 1em;
+    outline: none;
+    padding: .4em 2em;
+}
+
+button#validate {
+    width: 8em;
+}
+
+button#level {
+    font-size: 1.15em;
+    margin: 0 0 2em;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+@media (max-width: 48em) {
+    body { 
+        font-size: .7em; /* No smaller than .65em for best viewing experience */
+    }
+    
+    p {
+        font-size: 1.3em;
+    }
+}
+
+@media (min-width: 90em) {
+    body { 
+        font-size: 1.25em;
+    }
+}
+
+@media only screen
+and (min-device-width: 20em)
+and (max-device-width: 30em) {
+
+  body {
+      font-size: 1.5em;
+  }
+
+}

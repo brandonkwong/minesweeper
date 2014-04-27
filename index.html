@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Minesweeper | Brandon Kwong</title>
+    <link href="minesweeper.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="container">
+
+    <section>
+        <header></header>
+        <div id="board"></div>
+        <button id="new" type="button"></button>
+        <button id="validate" type="button"></button>
+        <button id="cheat" type="button"></button>
+        <button id="level" type="button">normal</button>
+        <script src="minesweeper.js"></script>
+    </section>
+
+    <section>
+        <h1>How Not to Explode</h2>
+        <p>This is a version of the classic game, Minesweeper. Reveal all tiles surrounding the ten hidden mines while avoiding an explosion. If a number appears, that means there are that many mines adjacent (including diagonals) to that particular tile. When landing on an empty tile, all sections of empty tiles and their neighboring numbered tiles are revealed. Needless to say, once you hit a mine, it's game over.</p>
+        <p>When you think you've revealed all tiles surrounding the hidden mines, hit the &#xf00c; button to validate your efforts. Win or lose, you can refresh the game and randomly generate new hidden mines with the &#xf021; button. If you think you need to cheat, poke the &#xf06e; button to see where all the mines are placed. Good luck!</p>
+    </section>
+    
+    <footer>
+        <p>Find the source on <a href="https://github.com/brandonkwong/minesweeper" target="_blank">GitHub</a>.</p>
+    </footer>
+
+</div>
+
+</body>    
+</html>
