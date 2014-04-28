@@ -2,7 +2,7 @@
 Name: Minesweeper
 Source URI: https://github.com/brandonkwong/minesweeper
 Description: A version of Minesweeper built for a software engineer problem challenge.
-Version: 1.0.0 (Document last updated on 26-Apr-14)
+Version: 1.0.5 (Document last updated on 28-Apr-14)
 Author: Brandon Kwong
 Author URI: http://brandonkwong.com
 License: MIT
@@ -26,28 +26,28 @@ function setupBoard() {
         for (i = 0; i < (grid+32); i++) {
             $('#board').append('<div class="tile"></div>');
         };
-            // Mines
-            while ($('.mine').length < (level*2)) {
-                $('.tile').eq(Math.floor(Math.random()*(grid+32))).html('<p>&#xf05c;</p>').addClass('mine');
-            };
+        // Mines
+        while ($('.mine').length < (level*2)) {
+            $('.tile').eq(Math.floor(Math.random()*(grid+32))).html('<p>&#xf05c;</p>').addClass('mine');
+        };
     } else {
         // Normal Difficulty
         for (i = 0; i < grid; i++) {
             $('#board').append('<div class="tile"></div>');
         };
-            // Mines
-            while ($('.mine').length < level) {
-                $('.tile').eq(Math.floor(Math.random()*grid)).html('<p>&#xf05c;</p>').addClass('mine');
-            };
+        // Mines
+        while ($('.mine').length < level) {
+            $('.tile').eq(Math.floor(Math.random()*grid)).html('<p>&#xf05c;</p>').addClass('mine');
+        };
     };
 
     // Walls
     $('.tile:nth-child(8n+1)').addClass('wall-l'); // Left Wall
     $('.tile:nth-child(8n)').addClass('wall-r'); // Right Wall
 
-    // Safe Tile Counter
-    $.fn.safeCounter = function() {
-        $(this).addClass('safe');
+    // Numbered Tile Counter
+    $.fn.numberedCounter = function() {
+        $(this).addClass('numbered');
         if ($(this).html() == 1) {
             $(this).text(2);
         } else if ($(this).html() == 2) {
@@ -67,16 +67,16 @@ function setupBoard() {
         };
     };
 
-    // Safe Tiles
+    // Numbered Tiles
     $('.mine').each(function() {
-        $(this).prevAll().eq(8).not('.mine, .wall-r').safeCounter();
-        $(this).prevAll().eq(7).not('.mine').safeCounter();
-        $(this).prevAll().eq(6).not('.mine, .wall-l').safeCounter();
-        $(this).prevAll().eq(0).not('.mine, .wall-r').safeCounter();
-        $(this).nextAll().eq(0).not('.mine, .wall-l').safeCounter();
-        $(this).nextAll().eq(6).not('.mine, .wall-r').safeCounter();
-        $(this).nextAll().eq(7).not('.mine').safeCounter();
-        $(this).nextAll().eq(8).not('.mine, .wall-l').safeCounter();
+        $(this).prevAll().eq(8).not('.mine, .wall-r').numberedCounter();
+        $(this).prevAll().eq(7).not('.mine').numberedCounter();
+        $(this).prevAll().eq(6).not('.mine, .wall-l').numberedCounter();
+        $(this).prevAll().eq(0).not('.mine, .wall-r').numberedCounter();
+        $(this).nextAll().eq(0).not('.mine, .wall-l').numberedCounter();
+        $(this).nextAll().eq(6).not('.mine, .wall-r').numberedCounter();
+        $(this).nextAll().eq(7).not('.mine').numberedCounter();
+        $(this).nextAll().eq(8).not('.mine, .wall-l').numberedCounter();
     });
 
     // Tile Hide
@@ -87,15 +87,21 @@ function setupBoard() {
     
     // Tile Reveal
     $.fn.reveal = function() {
-        $(this).addClass('revealed').css({
-            background: '#ddd',
-            color: 'gray'
-        });
+        if ( $(this).hasClass('numbered') ) {
+            $(this).addClass('revealed').css({
+                background: '#ddd',
+                color: 'gray'
+            });
+        } else {
+            $(this).addClass('empty').css('background', '#ddd');
+        };
     };
-        // Reveal Safe Tile
-        $('.safe').on('click', function() {
+    
+        // Reveal Numbered Tile
+        $('.numbered').on('click', function() {
             $(this).reveal();
         });
+    
         // Reveal Mine Tile (Explode and lose)
         $('.mine').on('click', function() {
             $('header').text("Game Over");
@@ -104,14 +110,14 @@ function setupBoard() {
                 background: '#f0707d',
                 color: '#eee'
             });
-            $('.safe').not('.revealed').css('color', '#f0707d');
+            $('.numbered').not('.revealed').css('color', '#f0707d');
             $('.tile').off();
             $('#cheat').off();
             $('#validate').html('&#xf119;').off();
         });
 
     // Tile Scan
-    $('.tile').not('.mine, .safe').on('click', function() {
+    $('.tile').not('.mine, .numbered').on('click', function() {
         // Scan for Empty Tiles
         $.fn.scan = function() {    
             $(this).each(function() {
@@ -127,9 +133,12 @@ function setupBoard() {
             });
         };
         // Scan
-        $(this).scan();                                 // Issue: Currently reveals ALL sections of
-        $(this).prevAll().not('.safe, .mine').scan();   // empty tiles and their bordering tiles. Should
-        $(this).nextAll().not('.safe, .mine').scan();   // only reveal that particular section.
+        $(this).scan();
+        $('.empty').each(function() {
+            for (i = 0; i < 8; i++) {
+                $('.empty').scan();
+            };
+        });
     });
     
     // Validate Button Reset
@@ -137,7 +146,7 @@ function setupBoard() {
 
     // Validate Button
     $('#validate').on('click', function() {  
-        if ( $('.safe').not('.revealed').length == 0 ) {
+        if ( $('.numbered').not('.revealed').length == 0 ) {
             // Win Condition
             $('header').text("You Didn't Explode!").css('color', '#f0707d');
             $('.mine').css('color', 'gray');
@@ -146,7 +155,7 @@ function setupBoard() {
             // Lose Condition
             $('header').text("Game Over");
             $('.mine').css('color', 'gray');
-            $('.safe').not('.revealed').css('color', '#f0707d');
+            $('.numbered').not('.revealed').css('color', '#f0707d');
             $('.tile').off();
             $(this).html('&#xf119;').off();
         };
