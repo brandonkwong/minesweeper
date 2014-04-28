@@ -176,7 +176,7 @@ $('#validate').html('&#xf00c;');
 $('#cheat').html('&#xf06e;');
 
 // New Button
-$('#new').on('click', function() {
+$('#new, header').on('click', function() {
     $('#board').empty();
     setupBoard();
 });

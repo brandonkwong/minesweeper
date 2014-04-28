@@ -32,6 +32,7 @@ body {
 }
 
 header {
+    cursor: pointer;
     font-size: 3em;
     font-weight: bold;
     margin: .25em 0;
