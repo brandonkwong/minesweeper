@@ -2,7 +2,7 @@
 Name: Minesweeper
 Source URI: https://github.com/brandonkwong/minesweeper
 Description: A version of Minesweeper built for a software engineer problem challenge.
-Version: 1.0.5 (Document last updated on 28-Apr-14)
+Version: 1.0.6 (Document last updated on 30-Apr-14)
 Author: Brandon Kwong
 Author URI: http://brandonkwong.com
 License: MIT
@@ -144,7 +144,7 @@ button#level {
 -------------------------------------------------------------- */
 @media (max-width: 48em) {
     body { 
-        font-size: .7em; /* No smaller than .65em for best viewing experience */
+        font-size: .7em;
     }
     
     p {

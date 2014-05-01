@@ -2,7 +2,7 @@
 Name: Minesweeper
 Source URI: https://github.com/brandonkwong/minesweeper
 Description: A version of Minesweeper built for a software engineer problem challenge.
-Version: 1.0.5 (Document last updated on 28-Apr-14)
+Version: 1.0.6 (Document last updated on 30-Apr-14)
 Author: Brandon Kwong
 Author URI: http://brandonkwong.com
 License: MIT
@@ -93,7 +93,7 @@ function setupBoard() {
                 color: 'gray'
             });
         } else {
-            $(this).addClass('empty').css('background', '#ddd');
+            $(this).addClass('empty revealed').css('background', '#ddd');
         };
     };
     
@@ -146,7 +146,7 @@ function setupBoard() {
 
     // Validate Button
     $('#validate').on('click', function() {  
-        if ( $('.numbered').not('.revealed').length == 0 ) {
+        if ( $('.tile').not('.revealed, .mine').length == 0 ) {
             // Win Condition
             $('header').text("You Didn't Explode!").css('color', '#f0707d');
             $('.mine').css('color', 'gray');
